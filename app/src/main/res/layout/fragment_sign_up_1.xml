@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.onboarding.fragment.SignUp1Fragment">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="103dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="25dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/studgenie_logo"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="145dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/sign_up"
+        android:textColor="@color/orangePrimary"
+        android:textSize="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/edit_text_phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.184"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <EditText
+        android:id="@+id/edit_text_phone"
+        android:layout_width="192dp"
+        android:layout_height="47dp"
+        android:backgroundTint="@color/orangePrimary"
+        android:fontFamily="@font/poppins_medium"
+        android:hint="@string/enter_number"
+        android:inputType="phone"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView_info_message"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinner_countries"
+        android:layout_width="110dp"
+        android:layout_height="47dp"
+        android:backgroundTint="@color/lightGrey"
+        android:dropDownWidth="95dp"
+        android:dropDownVerticalOffset="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_text_phone"
+        app:layout_constraintEnd_toStartOf="@+id/edit_text_phone"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/edit_text_phone"
+        tools:listitem="@layout/country_item" />
+
+    <TextView
+        android:id="@+id/textView_info_message"
+        android:layout_width="293dp"
+        android:layout_height="24dp"
+        android:fontFamily="@font/raleway"
+        android:text="@string/a_6_digit_otp_will_be_send_for_verification"
+        android:textColor="@color/orangeSecondary"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/textView_continue"
+        android:layout_width="141dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/button_shadow"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center"
+        android:text="Continue"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text_phone"
+        app:layout_constraintTop_toBottomOf="@+id/textView_info_message"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <TextView
+        android:id="@+id/textView_explore"
+        android:layout_width="141dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="4dp"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center_vertical"
+        android:text="Explore"
+        android:textColor="@color/orangePrimary"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_continue"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/textView_continue"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

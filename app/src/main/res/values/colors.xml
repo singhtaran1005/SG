@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">@color/white</color>
+
+<!--    For Login Screen-->
+    <color name="orangePrimary">#D9391D</color>
+    <color name="orangeSecondary">#D53114</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="lightGrey">#CBC5C5</color>
+    <color name="shadowGrey">#28ffffff</color>
+    <color name="lightshadowgrey">#707070</color>
+    <color name="transparent_red">#00FF0000</color>
+    <color name="light_shadow_grey">#707070</color>
+    <color name="toast_message">#1FD9391D</color>
+    <color name="resend_message">#1F2190DA</color>
+</resources>
