@@ -5,21 +5,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.studgenie.app.R
 import com.studgenie.app.util.InternetConnectivity
 import com.studgenie.app.data.model.CountryItem
 import com.studgenie.app.ui.onboarding.adapter.CountrySpinnerAdapter
 
-class SignUp1Fragment : Fragment() {
-
-    lateinit var mPhoneNumberEditText:EditText
-    lateinit var mSmsButton:Button
-    lateinit var mCountryIso:String
+class SignUp1Fragment : Fragment(){
+    lateinit var phoneNumberEditText:EditText
+    lateinit var continueButton:Button
+    lateinit var countryCode:String
+    lateinit var toastMessage:TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,8 +24,9 @@ class SignUp1Fragment : Fragment() {
     ): View? {
         val rootView: View = inflater.inflate(R.layout.fragment_sign_up_1, container, false)
 
-        mPhoneNumberEditText = rootView.findViewById(R.id.edit_text_phone)
-        mSmsButton = rootView.findViewById(R.id.textView_continue)
+        phoneNumberEditText = rootView.findViewById(R.id.edit_text_phone)
+        continueButton = rootView.findViewById(R.id.textView_continue)
+        toastMessage = rootView.findViewById(R.id.toast_message_1st_signup_fragment)
 
         val spinner = rootView.findViewById<Spinner>(R.id.spinner_countries)
         val adapter = CountrySpinnerAdapter(requireContext(), createUserModelList())
@@ -36,33 +34,37 @@ class SignUp1Fragment : Fragment() {
 
         Log.d("Connection","isConnected = ${InternetConnectivity.isConnected(requireContext())}  isConnectedFast = ${InternetConnectivity.isConnectedFast(requireContext())}")
 
-        mCountryIso= spinner.selectedItem.toString()
-            mSmsButton.setOnClickListener(View.OnClickListener {
+        countryCode= spinner.selectedItem.toString()
+            continueButton.setOnClickListener(View.OnClickListener {
                 if (InternetConnectivity.isConnected(requireContext()) == true && InternetConnectivity.isConnectedFast(requireContext()) == true) {
 
-                    var storePhoneNo = mPhoneNumberEditText.getText().toString()
+                    var storePhoneNo = phoneNumberEditText.getText().toString()
                     if (storePhoneNo.matches("".toRegex())) {
-                        Toast.makeText(requireContext(), "Enter your no first", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(requireContext(), "Enter your no first", Toast.LENGTH_SHORT).show()
+                        toastMessage.visibility = View.VISIBLE
+                        toastMessage.setText("Enter your no first")
+                        toastMessage.setBackgroundResource(R.color.transparent_red)
                     } else {
+
+//                        init(91)
                         val signUp2Fragment = SignUp2Fragment()
                         val args = Bundle()
-                        Log.d("mCountryIso", mCountryIso)
-                        args.putString("phNo", mPhoneNumberEditText.text.toString())
-                        args.putString("isoCode", mCountryIso)
+                        Log.d("mCountryIso", countryCode)
+                        args.putString("phNo", phoneNumberEditText.text.toString())
+                        args.putString("isoCode", countryCode)
                         signUp2Fragment.setArguments(args)
 
-                        getFragmentManager()!!.beginTransaction().addToBackStack(null).replace(
+                        getFragmentManager()!!.beginTransaction().replace(
                             R.id.signup_fragment_container,
                             signUp2Fragment
                         ).commit()
                     }
 
                 } else {
-                    Toast.makeText(
-                        requireContext(),
-                        "Check Your Internet Connection",
-                        Toast.LENGTH_LONG
-                    ).show()
+//                    Toast.makeText(requireContext(),"Check Your Internet Connection",Toast.LENGTH_LONG).show()
+                    toastMessage.visibility = View.VISIBLE
+                    toastMessage.setText("Check Your Internet Connection")
+                    toastMessage.setBackgroundResource(R.color.transparent_red)
                 }
             })
 
@@ -78,4 +80,5 @@ class SignUp1Fragment : Fragment() {
 
         return list
     }
+
 }

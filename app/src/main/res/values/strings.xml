@@ -20,4 +20,13 @@
     <string name="enter_otp">Enter OTP</string>
     <string name="receive_otp">Did not receive OTP?</string>
     <string name="verify">Verify &amp; Proceed</string>
+    <string name="otp_success">OTP send successfully</string>
+    <string name="otp_resend">OTP resend to your mobile number</string>
+    <string name="detail_text">Please Enter Your Details</string>
+    <string name="enter_name">Enter Name</string>
+    <string name='enter_email'>Enter Email</string>
+    <string name='enter_password'>Enter Password</string>
+    <string name='confirm'>Confirm Password</string>
+    <string name='submit'>Submit</string>
+    <string name='skip'>Skip</string>
 </resources>

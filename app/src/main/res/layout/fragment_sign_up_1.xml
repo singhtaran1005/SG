@@ -48,7 +48,9 @@
         app:layout_constraintBottom_toTopOf="@+id/textView_info_message"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:digits="0 1 2 3 4 5 6 7 8 9"
+        android:maxLength="10"/>
 
     <Spinner
         android:id="@+id/spinner_countries"
@@ -109,5 +111,23 @@
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toTopOf="@+id/textView_continue"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/toast_message_1st_signup_fragment"
+        android:layout_width="233dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="36dp"
+        android:background="@color/transparent_blue"
+        android:fontFamily="@font/raleway"
+        android:text="OTP resend to your mobile number"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="12dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        android:visibility="invisible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
