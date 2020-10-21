@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.studgenie.app.R
 import com.studgenie.app.data.model.CountryItem
 import de.hdodenhof.circleimageview.CircleImageView
@@ -34,8 +35,12 @@ class CountrySpinnerAdapter(val mContext: Context, val mData: ArrayList<CountryI
 
         view?.tag = viewHolder
 
-        viewHolder.selectedCountryName.text = mData[position].countryName
-        viewHolder.selectedCountryFlag.setImageResource(mData[position].flagImage)
+        viewHolder.selectedCountryName.text = mData[position].code
+//        viewHolder.selectedCountryFlag.setImageResource(mData[position].flagImage)
+
+        Glide.with(mContext)
+            .load(mData[position].flag)
+            .into(viewHolder.selectedCountryFlag)
 
         return view!!
     }
@@ -53,8 +58,14 @@ class CountrySpinnerAdapter(val mContext: Context, val mData: ArrayList<CountryI
 
         view?.tag = viewHolder
 
-        viewHolder.countryname.text = mData[position].countryName
-        viewHolder.flag.setImageResource(mData[position].flagImage)
+        viewHolder.countryname.text = mData[position].code
+//        viewHolder.flag.setImageResource(mData[position].flagImage)
+
+        Glide.with(mContext)
+            .load(mData[position].flag)
+            .into(viewHolder.flag)
+
+
 
         return view!!
     }

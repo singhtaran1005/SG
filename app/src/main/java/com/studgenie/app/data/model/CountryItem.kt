@@ -1,3 +1,6 @@
 package com.studgenie.app.data.model
 
-class CountryItem(val countryName: String, val flagImage: Int)
+data class CountryItem(
+    val code: String,
+    val flag: String
+)

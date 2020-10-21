@@ -20,70 +20,48 @@
         app:srcCompat="@drawable/studgenie_logo"
         tools:ignore="ContentDescription" />
 
-    <!--    android:maxLength="10"-->
-
-    <!--    <Spinner-->
-    <!--        android:id="@+id/spinner_countries"-->
-    <!--        android:layout_width="110dp"-->
-    <!--        android:layout_height="47dp"-->
-    <!--        android:backgroundTint="@color/lightGrey"-->
-    <!--        android:dropDownWidth="95dp"-->
-    <!--        android:dropDownVerticalOffset="6dp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="@+id/editTextPhone"-->
-    <!--        app:layout_constraintEnd_toStartOf="@+id/editTextPhone"-->
-    <!--        app:layout_constraintHorizontal_bias="0.0"-->
-    <!--        app:layout_constraintStart_toStartOf="@+id/textView"-->
-    <!--        app:layout_constraintTop_toTopOf="@+id/editTextPhone"-->
-    <!--        tools:listitem="@layout/country_item" />-->
-
-
     <TextView
         android:id="@+id/sign_up_title"
         android:layout_width="145dp"
         android:layout_height="51dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/poppins_medium"
         android:text="@string/sign_up"
         android:textColor="@color/orangePrimary"
         android:textSize="36dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.184"
+        app:layout_constraintHorizontal_bias="0.191"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/studgenie_imageView" />
-
-    <!--    android:background="@drawable/button_shadow"-->
+        app:layout_constraintTop_toBottomOf="@+id/toast_message_during_signup" />
 
     <com.studgenie.app.ui.common.OtpEditText
         android:id="@+id/enter_otp"
-        android:layout_width="301dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:backgroundTint="@color/orangePrimary"
+        android:digits="0 1 2 3 4 5 6 7 8 9"
+        android:maxLength="6"
         android:fontFamily="@font/poppins_medium"
         android:hint="@string/enter_number"
         android:inputType="phone"
         android:textColor="@color/black"
         android:textSize="26dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/sign_up_title"
-        app:layout_constraintTop_toTopOf="@+id/enter_otp_title"
-        app:layout_constraintVertical_bias="0.004"
-        android:digits="0 1 2 3 4 5 6 7 8 9"/>
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_title" />
 
     <TextView
         android:id="@+id/did_not_receive_otp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="2dp"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/raleway"
         android:text="@string/receive_otp"
         android:textColor="@color/black"
         android:textSize="11dp"
-        app:layout_constraintEnd_toStartOf="@+id/resend_otp_button"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/enter_otp"
         app:layout_constraintTop_toBottomOf="@+id/enter_otp" />
 
@@ -104,12 +82,13 @@
         app:layout_constraintTop_toBottomOf="@+id/did_not_receive_otp"
         app:layout_constraintVertical_bias="0.134" />
 
+
     <TextView
         android:id="@+id/enter_otp_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:layout_marginStart="2dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/raleway"
         android:text="@string/enter_otp"
         android:textColor="@color/black"
@@ -117,19 +96,17 @@
         app:layout_constraintStart_toStartOf="@+id/sign_up_title"
         app:layout_constraintTop_toBottomOf="@+id/sign_up_title" />
 
-
     <TextView
         android:id="@+id/resend_otp_button"
         android:layout_width="80dp"
         android:layout_height="15dp"
-        android:layout_marginStart="152dp"
         android:fontFamily="@font/raleway"
         android:gravity="start"
         android:text="Resend OTP"
         android:textColor="@color/orangePrimary"
         android:textSize="13dp"
         app:layout_constraintBottom_toBottomOf="@+id/did_not_receive_otp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/did_not_receive_otp"
         app:layout_constraintTop_toTopOf="@+id/did_not_receive_otp"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -151,7 +128,7 @@
         android:id="@+id/toast_message_during_signup"
         android:layout_width="233dp"
         android:layout_height="25dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="44dp"
         android:background="@color/transparent_blue"
         android:fontFamily="@font/raleway"
         android:gravity="center"
@@ -161,6 +138,7 @@
         android:textSize="12dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/studgenie_imageView" />
 

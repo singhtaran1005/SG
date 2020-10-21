@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.onboarding.fragment.SignUp3Fragment"
     android:background="@color/white">
 
     <ImageView
@@ -101,6 +100,7 @@
         android:textSize="6pt">
 
     </EditText>
+    <!--    baaki kl kregen fir bs firebase wala dekh kr jao ok ?-->
 
     <Button
         android:id="@+id/submit"

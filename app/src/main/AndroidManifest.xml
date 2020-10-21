@@ -17,11 +17,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".ui.onboarding.activity.SignUpActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".ui.onboarding.activity.HomeActivity"></activity>
+        <activity
+            android:name=".ui.onboarding.activity.SignUpActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".ui.onboarding.activity.SplashActivity"
             android:screenOrientation="portrait">

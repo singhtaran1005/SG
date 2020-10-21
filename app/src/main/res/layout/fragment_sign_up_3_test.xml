@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.onboarding.fragment.SignUp3Fragment">
+
+    <ImageView
+        android:id="@+id/studgenie_logo"
+        android:layout_width="103dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="25dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/studgenie_logo"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/please_enter_your_setails"
+        android:layout_width="290dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="44dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/detail_text"
+        android:textColor="@color/orangePrimary"
+        android:textSize="23dp"
+        android:paddingLeft="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/studgenie_logo" />
+
+
+    <EditText
+        android:id="@+id/enter_name"
+        android:layout_width="290dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="68dp"
+        android:inputType="textPersonName"
+        android:hint="@string/enter_name"
+        android:textSize="15dp"
+        android:fontFamily="@font/raleway"
+        app:layout_constraintEnd_toEndOf="@+id/please_enter_your_setails"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/please_enter_your_setails"
+        app:layout_constraintTop_toBottomOf="@+id/please_enter_your_setails" />
+
+    <EditText
+        android:id="@+id/enter_email"
+        android:layout_width="290dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="15dp"
+        android:inputType="textEmailAddress"
+        android:hint="@string/enter_email"
+        android:textSize="15dp"
+        android:fontFamily="@font/raleway"
+        app:layout_constraintEnd_toEndOf="@+id/please_enter_your_setails"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/please_enter_your_setails"
+        app:layout_constraintTop_toBottomOf="@+id/enter_name" />
+
+    <EditText
+        android:id="@+id/enter_password"
+        android:layout_width="290dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="15dp"
+        android:inputType="textPassword"
+        android:fontFamily="@font/raleway"
+        android:hint="@string/enter_password"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="@+id/please_enter_your_setails"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/please_enter_your_setails"
+        app:layout_constraintTop_toBottomOf="@+id/enter_email" />
+
+    <EditText
+        android:id="@+id/confirm_password"
+        android:layout_width="290dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/raleway"
+        android:hint="@string/confirm"
+        android:textSize="15dp"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/please_enter_your_setails"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/please_enter_your_setails"
+        app:layout_constraintTop_toBottomOf="@+id/enter_password" />
+
+    <Button
+        android:id="@+id/skip_button"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="56dp"
+        android:gravity="center"
+        android:text="@string/skip"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppins_medium"
+        android:background="@color/orangePrimary"
+        app:layout_constraintEnd_toStartOf="@+id/submit_button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/please_enter_your_setails"
+        app:layout_constraintTop_toBottomOf="@+id/confirm_password" />
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:gravity="center"
+        android:text="@string/submit"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppins_medium"
+        android:background="@color/orangePrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/skip_button"
+        app:layout_constraintEnd_toEndOf="@+id/please_enter_your_setails"
+        app:layout_constraintTop_toTopOf="@+id/skip_button"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
