@@ -7,6 +7,7 @@
     tools:context=".ui.onboarding.fragment.VideoFragment"
     android:background="#00BCD4">
 
+
     <TextView
         android:id="@+id/video_fragment"
         android:layout_width="wrap_content"
@@ -18,5 +19,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+<!--    <com.google.android.exoplayer2.ui.PlayerView-->
+<!--        android:id="@+id/player_view"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

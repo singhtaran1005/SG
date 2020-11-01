@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.studgenie.app.R
-import com.studgenie.app.data.model.ApiCountryService
+import com.studgenie.app.ui.ApiService.ApiCountryService
 import com.studgenie.app.util.InternetConnectivity
 import com.studgenie.app.data.model.CountryItem
 import com.studgenie.app.ui.onboarding.adapter.CountrySpinnerAdapter

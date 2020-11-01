@@ -1,5 +1,6 @@
-package com.studgenie.app.data.model
+package com.studgenie.app.ui.ApiService
 
+import com.studgenie.app.data.model.CountryItem
 import retrofit2.Call
 import retrofit2.http.GET
 

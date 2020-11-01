@@ -20,13 +20,27 @@ import com.msg91.sendotpandroid.library.roots.RetryType
 import com.msg91.sendotpandroid.library.roots.SendOTPConfigBuilder
 import com.msg91.sendotpandroid.library.roots.SendOTPResponseCode
 import com.studgenie.app.R
+import com.studgenie.app.data.model.SendNumber
+import com.studgenie.app.data.model.SignUpApiResponse
+import com.studgenie.app.ui.ApiService.SignUpApi
+import com.studgenie.app.ui.Database.AuthDatabase
+import com.studgenie.app.ui.Database.AuthToken
+
 import com.studgenie.app.util.InternetConnectivity
 import com.studgenie.app.ui.common.OtpEditText
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.math.roundToInt
 
 
 @Suppress("DEPRECATION")
-class SignUp2Fragment : Fragment(), VerificationListener {
+class SignUp2Fragment : BaseFragment(), VerificationListener {
+
+    private var authToken:AuthToken? = null
 
     lateinit var enterOtpEditText: OtpEditText
     lateinit var verifyAndProceedButton:Button
@@ -83,6 +97,40 @@ class SignUp2Fragment : Fragment(), VerificationListener {
         }
         return rootView
     }
+// for storing into database
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        launch {
+            context?.let {
+                val mAuthToken = AuthToken("kkkkk")
+                if (authToken == null){
+                    AuthDatabase(it).getAuthDao().addToken(mAuthToken)
+                    val notes = AuthDatabase(it).getAuthDao().getAuthToken()
+                    Log.d("Ankan1",notes[0].id.toString() +"\n"+ notes[0].authToken.toString())
+                }
+
+//                val mUser = User(33,"taran","abc@xyx.com")
+//                val user = AuthDatabase(it).getUser().addUser(mUser)
+//
+//                val user1 = AuthDatabase(it).getUser().readAllData()
+//                Log.d("Ankan5",user1[0].id.toString() + user1[0].email)
+
+
+
+            }
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
 
     override fun onSendOtpResponse(responseCode: SendOTPResponseCode, message: String) {
             activity!!.runOnUiThread {
@@ -97,6 +145,48 @@ class SignUp2Fragment : Fragment(), VerificationListener {
                     toastMessage.setBackgroundResource(R.color.transparent_blue)
                     timer.cancel();
                     timer.onFinish()
+
+                    val retrofit = Retrofit.Builder()
+                        .baseUrl("http://192.168.43.217:3000")
+//                        .baseUrl("http://sg-backend-dev.ap-south-1.elasticbeanstalk.com")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build()
+
+                    val signUpApi = retrofit.create(SignUpApi::class.java)
+                    val sendNumber = SendNumber(phone.toString())
+                    signUpApi.userSignup(sendNumber).enqueue(object :Callback<SignUpApiResponse>{
+                        override fun onResponse(call: Call<SignUpApiResponse>, response: Response<SignUpApiResponse>) {
+                            Log.d("Retrofit1", "OnResponse: ${response.body()?.message.toString()} \n"
+                                        + "Auth Token: ${response.body()?.auth_token.toString()} \n"
+                                        + "Response Code: ${response.code()}\n")
+
+
+                            if (response.body()?.auth_token.toString() != null){
+                                launch {
+                                    context?.let {
+                                        val mAuthToken = AuthToken(response.body()?.message.toString())
+                                        if (authToken == null){
+                                            AuthDatabase(it).getAuthDao().addToken(mAuthToken)
+                                            val notes = AuthDatabase(it).getAuthDao().getAuthToken()
+                                            Log.d("Ankan1",notes[notes.size-1].id.toString() +"\n"+ notes[notes.size-1].authToken.toString())
+                                        }
+                                    }
+                                }
+                            }
+
+
+
+
+
+
+
+
+                        }
+                        override fun onFailure(call: Call<SignUpApiResponse>, t: Throwable) {
+                            Log.d("Retrofit1", "OnFailure")
+                        }
+                    })
+
 
                     val signUp3Fragment = SignUp3Fragment()
                     val args = Bundle()
