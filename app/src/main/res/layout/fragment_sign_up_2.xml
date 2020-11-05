@@ -1,199 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    >
+    tools:context=".ui.onboarding.fragment.SignUp2Fragment">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="105dp"
+        android:id="@+id/studgenie_imageView"
+        android:layout_width="103dp"
         android:layout_height="56dp"
-        android:layout_marginStart="150dp"
         android:layout_marginTop="25dp"
-        android:contentDescription="@string/todo"
-        android:src="@drawable/studgenie_logo">/</ImageView>
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/studgenie_logo"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/sign_up_title"
         android:layout_width="145dp"
         android:layout_height="51dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/poppins_medium"
-        android:text='@string/sign_up'
+        android:text="@string/sign_up"
         android:textColor="@color/orangePrimary"
-        android:textSize="36dp">/</TextView>
-
-
-    <TextView
-        android:id="@+id/textView_enterotp"
-        android:layout_width="44pt"
-        android:layout_height="11pt"
-        android:layout_marginLeft="55dp"
-        android:layout_marginTop="291dp"
-        android:fontFamily="@font/raleway"
-        android:text="@string/enter_otp"
-        android:textColor="@color/black"
-        android:textSize="20dp">/</TextView>
-
-<!--    <EditText-->
-<!--        android:id="@+id/edit_text_otp1"-->
-<!--        android:layout_width="46dp"-->
-<!--        android:layout_height="43dp"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:layout_marginStart="53dp"-->
-<!--        android:layout_marginTop="340dp"-->
-<!--        android:backgroundTint="@color/lightshadowgrey"-->
-<!--        android:padding="6dp"-->
-<!--        android:text="8"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="30sp" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/edit_text_otp2"-->
-<!--        android:layout_width="46dp"-->
-<!--        android:layout_height="43dp"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:layout_marginLeft="102dp"-->
-<!--        android:layout_marginTop="340dp"-->
-<!--        android:backgroundTint="@color/lightshadowgrey"-->
-<!--        android:padding="6dp"-->
-<!--        android:text="8"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="30sp" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/edit_text_otp3"-->
-<!--        android:layout_width="46dp"-->
-<!--        android:layout_height="43dp"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:layout_marginLeft="151dp"-->
-<!--        android:layout_marginTop="340dp"-->
-<!--        android:backgroundTint="@color/lightshadowgrey"-->
-<!--        android:padding="6dp"-->
-<!--        android:text="8"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="30sp" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/edit_text_otp4"-->
-<!--        android:layout_width="46dp"-->
-<!--        android:layout_height="43dp"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:layout_marginLeft="200dp"-->
-<!--        android:layout_marginTop="340dp"-->
-<!--        android:backgroundTint="@color/lightshadowgrey"-->
-<!--        android:padding="6dp"-->
-<!--        android:text="8"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="30sp" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/edit_text_otp5"-->
-<!--        android:layout_width="46dp"-->
-<!--        android:layout_height="43dp"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:layout_marginLeft="249dp"-->
-<!--        android:layout_marginTop="340dp"-->
-<!--        android:backgroundTint="@color/lightshadowgrey"-->
-<!--        android:padding="6dp"-->
-<!--        android:text="8"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="30sp" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/edit_text_otp6"-->
-<!--        android:layout_width="46dp"-->
-<!--        android:layout_height="43dp"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:layout_marginLeft="298dp"-->
-<!--        android:layout_marginTop="340dp"-->
-<!--        android:backgroundTint="@color/lightshadowgrey"-->
-<!--        android:padding="6dp"-->
-<!--        android:text="8"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="30sp" />-->
+        android:textSize="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.191"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toast_message_during_signup" />
 
     <com.studgenie.app.ui.common.OtpEditText
         android:id="@+id/enter_otp"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/inputbox_new"
-        android:textColor="@color/black"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/orangePrimary"
+        android:digits="0 1 2 3 4 5 6 7 8 9"
         android:maxLength="6"
-        android:textSize="20sp"
-        android:textIsSelectable="false"
-        android:padding="10dp"
-        android:textColorHint="@color/lightshadowgrey"
-        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/poppins_medium"
+        android:hint="@string/enter_number"
         android:inputType="phone"
-        android:layout_below="@+id/textView_enterotp"
-        android:layout_marginLeft="55dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="30dp"
-        />
+        android:textColor="@color/black"
+        android:textSize="26dp"
+        android:cursorVisible="false"
+        android:textIsSelectable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/sign_up_title"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_title" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="50pt"
-        android:layout_height="10pt"
-        android:layout_marginLeft="55dp"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/enter_otp"
+        android:id="@+id/did_not_receive_otp"
+        android:layout_width="130dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/raleway"
         android:text="@string/receive_otp"
-        android:textSize="11dp"
-        android:textColor="@color/black">/</TextView>
-
-    <TextView
-        android:id="@+id/resend_otp_button"
-        android:layout_width="40pt"
-        android:layout_height="10pt"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/enter_otp"
-        android:fontFamily="@font/raleway"
-        android:text="Resend OTP"
-        android:textSize="11dp"
-        android:layout_toRightOf="@+id/textView3"
-        android:textColor="#D9391D">/</TextView>
-
-    <TextView
-        android:id="@+id/timer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/enter_otp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_toRightOf="@+id/resend_otp_button"
-        android:fontFamily="@font/raleway"
-        android:text="00:30"
         android:textColor="@color/black"
-        android:textSize="11dp" />
+        android:textSize="13dp"
+        app:layout_constraintStart_toStartOf="@+id/enter_otp"
+        app:layout_constraintTop_toBottomOf="@+id/enter_otp"
+        />
 
     <Button
         android:id="@+id/verify_proceed"
-        android:layout_width="150dp"
-        android:layout_height="18pt"
-        android:layout_marginStart="195dp"
-        android:layout_marginTop="460dp"
-        android:background="@drawable/button_shadow"
+        android:layout_width="141dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="4dp"
+        android:background="@color/transparent_red"
         android:fontFamily="@font/poppins_medium"
         android:gravity="center"
         android:text="@string/verify"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="14dp"
-        />
-</RelativeLayout>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/enter_otp"
+        app:layout_constraintTop_toBottomOf="@+id/did_not_receive_otp"
+        app:layout_constraintVertical_bias="0.134" />
+
+
+    <TextView
+        android:id="@+id/enter_otp_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/raleway"
+        android:text="@string/enter_otp"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="@+id/sign_up_title"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_title" />
+
+    <TextView
+        android:id="@+id/resend_otp_button"
+        android:layout_width="80dp"
+        android:layout_height="15dp"
+        android:fontFamily="@font/raleway"
+        android:gravity="start"
+        android:text="Resend OTP"
+        android:textColor="@color/orangePrimary"
+        android:textSize="13dp"
+        app:layout_constraintBottom_toBottomOf="@+id/did_not_receive_otp"
+        app:layout_constraintStart_toEndOf="@+id/did_not_receive_otp"
+        app:layout_constraintTop_toTopOf="@+id/did_not_receive_otp"
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_marginLeft="4dp"/>
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="00:30"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        app:layout_constraintBottom_toTopOf="@+id/verify_proceed"
+        app:layout_constraintEnd_toEndOf="@+id/enter_otp"
+        app:layout_constraintTop_toTopOf="@+id/resend_otp_button"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/toast_message_during_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:padding="5dp"
+        android:background="@color/transparent_blue"
+        android:fontFamily="@font/raleway"
+        android:gravity="center"
+        android:text="OTP resend to your mobile number"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="12dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/studgenie_imageView" />
+
+    <Button
+        android:id="@+id/back_arrow"
+        android:layout_width="31dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/arrow_back"
+        app:layout_constraintEnd_toStartOf="@+id/sign_up_title"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,8 +12,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.msg91.sendotpandroid.library.internal.SendOTP
 import com.msg91.sendotpandroid.library.listners.VerificationListener
 import com.msg91.sendotpandroid.library.roots.RetryType
@@ -21,14 +24,14 @@ import com.msg91.sendotpandroid.library.roots.SendOTPConfigBuilder
 import com.msg91.sendotpandroid.library.roots.SendOTPResponseCode
 import com.studgenie.app.R
 import com.studgenie.app.data.model.SendNumber
-import com.studgenie.app.data.model.SignUpApiResponse
-import com.studgenie.app.ui.ApiService.SignUpApi
-import com.studgenie.app.ui.Database.AuthDatabase
-import com.studgenie.app.ui.Database.AuthToken
+import com.studgenie.app.data.remote.SignUpApiResponse
+import com.studgenie.app.data.remote.SignUpApi
+import com.studgenie.app.data.local.tokenDatabase.AuthToken
+import com.studgenie.app.data.local.tokenDatabase.AuthViewModel
 
 import com.studgenie.app.util.InternetConnectivity
 import com.studgenie.app.ui.common.OtpEditText
-import kotlinx.coroutines.launch
+import com.studgenie.app.util.Config
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,9 +41,9 @@ import kotlin.math.roundToInt
 
 
 @Suppress("DEPRECATION")
-class SignUp2Fragment : BaseFragment(), VerificationListener {
+class SignUp2Fragment : Fragment(), VerificationListener {
 
-    private var authToken:AuthToken? = null
+    private lateinit var authViewModel: AuthViewModel
 
     lateinit var enterOtpEditText: OtpEditText
     lateinit var verifyAndProceedButton:Button
@@ -49,14 +52,16 @@ class SignUp2Fragment : BaseFragment(), VerificationListener {
     lateinit var toastMessage:TextView
     lateinit var timer: CountDownTimer
     lateinit var backArrow:Button
+    var isTokenEmpty:Int = 1
 
     var phone: String? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        authViewModel = ViewModelProvider(requireActivity()).get(AuthViewModel::class.java)
 
-        val rootView = inflater.inflate(R.layout.fragment_sign_up_2_test, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_sign_up_2, container, false)
         if (InternetConnectivity.isConnected(requireContext()) && InternetConnectivity.isConnectedFast(requireContext())){
 
             verifyAndProceedButton = rootView.findViewById(R.id.verify_proceed) as Button
@@ -87,113 +92,83 @@ class SignUp2Fragment : BaseFragment(), VerificationListener {
             verifyAndProceedButton.setOnClickListener(View.OnClickListener {
                 SendOTP.getInstance().getTrigger().verify(enterOtpEditText.getText().toString())
             })
-
-
         }else{
-//            Toast.makeText(requireContext(), "Check Your Internet Connection", Toast.LENGTH_LONG).show()
             toastMessage.visibility = View.VISIBLE
             toastMessage.text = "Check Your Internet Connection"
             toastMessage.setBackgroundResource(R.color.transparent_red)
         }
+        authViewModel.readAllData?.observe(viewLifecycleOwner, Observer{ auth->
+            if (auth.isEmpty()){
+                isTokenEmpty = 1
+                Log.d("Coroutine","List is empty")
+            }else{
+                isTokenEmpty = 0
+                Log.d("Coroutine",auth[0].id.toString()+auth[0].authToken)
+//                Log.d("Coroutine",auth[auth.size-1].id.toString()+auth[auth.size-1].authToken)
+            }
+        })
         return rootView
     }
-// for storing into database
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        launch {
-            context?.let {
-                val mAuthToken = AuthToken("kkkkk")
-                if (authToken == null){
-                    AuthDatabase(it).getAuthDao().addToken(mAuthToken)
-                    val notes = AuthDatabase(it).getAuthDao().getAuthToken()
-                    Log.d("Ankan1",notes[0].id.toString() +"\n"+ notes[0].authToken.toString())
-                }
-
-//                val mUser = User(33,"taran","abc@xyx.com")
-//                val user = AuthDatabase(it).getUser().addUser(mUser)
-//
-//                val user1 = AuthDatabase(it).getUser().readAllData()
-//                Log.d("Ankan5",user1[0].id.toString() + user1[0].email)
-
-
-
-            }
-        }
-
-    }
-
-
-
-
-
-
-
-
-
-
 
     override fun onSendOtpResponse(responseCode: SendOTPResponseCode, message: String) {
             activity!!.runOnUiThread {
                 Log.e("VerificationActivity","onSendOtpResponse: " + responseCode.getCode() + "=======" + message)
                 if (responseCode == SendOTPResponseCode.DIRECT_VERIFICATION_SUCCESSFUL_FOR_NUMBER || responseCode == SendOTPResponseCode.OTP_VERIFIED) {
-//                    context?.let {
-//                        AlertDialog.Builder(it)
-//                            .setTitle("Success!!").setMessage("Verified Successfully !").show()
-//                    }
-//                    toastMessage.visibility = View.VISIBLE
+                    //Verified Successfully !
                     toastMessage.text = "Verified Successfully !"
                     toastMessage.setBackgroundResource(R.color.transparent_blue)
                     timer.cancel();
                     timer.onFinish()
 
                     val retrofit = Retrofit.Builder()
-                        .baseUrl("http://192.168.43.217:3000")
+//                        .baseUrl("http://192.168.43.217:3000")
 //                        .baseUrl("http://sg-backend-dev.ap-south-1.elasticbeanstalk.com")
+                        .baseUrl(Config.baseUrl)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build()
 
                     val signUpApi = retrofit.create(SignUpApi::class.java)
                     val sendNumber = SendNumber(phone.toString())
-                    signUpApi.userSignup(sendNumber).enqueue(object :Callback<SignUpApiResponse>{
-                        override fun onResponse(call: Call<SignUpApiResponse>, response: Response<SignUpApiResponse>) {
-                            Log.d("Retrofit1", "OnResponse: ${response.body()?.message.toString()} \n"
+                    signUpApi.userSignup(sendNumber).enqueue(object : Callback<SignUpApiResponse> {
+                        override fun onResponse(
+                            call: Call<SignUpApiResponse>,
+                            response: Response<SignUpApiResponse>
+                        ) {
+                            Log.d(
+                                "Retrofit2", "OnResponse: ${response.body()?.message.toString()} \n"
                                         + "Auth Token: ${response.body()?.auth_token.toString()} \n"
-                                        + "Response Code: ${response.code()}\n")
+                                        + "Response Code: ${response.code()}\n"
+                            )
+                            if (response.body()?.auth_token.toString() != null) {
+                                val mAuthToken = AuthToken(response.body()?.auth_token.toString())
+//                                val mAuthToken = AuthToken("bbbbbbbbbb")
+                                if (isTokenEmpty == 1){
+                                    authViewModel.addToken(mAuthToken)
 
+                                    Log.d("Coroutine", "Successfully added!")
+                                    val signUp3Fragment = SignUp3Fragment()
+                                    val args = Bundle()
+                                    args.putString("phNo", phone)
+                                    signUp3Fragment.arguments = args
+                                    fragmentManager!!.beginTransaction().replace(R.id.signup_fragment_container,signUp3Fragment).commit()
+                                }else{
+                                    authViewModel.updateToken(mAuthToken)
+                                    Log.d("Coroutine", "Successfully updated!")
 
-                            if (response.body()?.auth_token.toString() != null){
-                                launch {
-                                    context?.let {
-                                        val mAuthToken = AuthToken(response.body()?.message.toString())
-                                        if (authToken == null){
-                                            AuthDatabase(it).getAuthDao().addToken(mAuthToken)
-                                            val notes = AuthDatabase(it).getAuthDao().getAuthToken()
-                                            Log.d("Ankan1",notes[notes.size-1].id.toString() +"\n"+ notes[notes.size-1].authToken.toString())
-                                        }
-                                    }
+                                    val signUp3Fragment = SignUp3Fragment()
+                                    val args = Bundle()
+                                    args.putString("phNo", phone)
+                                    signUp3Fragment.arguments = args
+                                    fragmentManager!!.beginTransaction().replace(R.id.signup_fragment_container,signUp3Fragment).commit()
                                 }
+                            } else {
+                                Toast.makeText(requireContext(), response.body()?.message.toString(), Toast.LENGTH_SHORT).show()
                             }
-
-
-
-
-
-
-
-
                         }
                         override fun onFailure(call: Call<SignUpApiResponse>, t: Throwable) {
-                            Log.d("Retrofit1", "OnFailure")
+                            Log.d("Retrofit2", "OnFailure")
                         }
                     })
-
-
-                    val signUp3Fragment = SignUp3Fragment()
-                    val args = Bundle()
-                    args.putString("phNo", phone)
-                    signUp3Fragment.arguments = args
-                    fragmentManager!!.beginTransaction().replace(R.id.signup_fragment_container,signUp3Fragment).commit()
-
                 } else if (responseCode == SendOTPResponseCode.READ_OTP_SUCCESS) {
                     //Auto read otp from sms successfully
                     // you can get otp form message filled
@@ -202,16 +177,15 @@ class SignUp2Fragment : BaseFragment(), VerificationListener {
                         SendOTP.getInstance().getTrigger().verify(message)
                     }
                 }else if (responseCode == SendOTPResponseCode.SMS_SUCCESSFUL_SEND_TO_NUMBER || responseCode == SendOTPResponseCode.DIRECT_VERIFICATION_FAILED_SMS_SUCCESSFUL_SEND_TO_NUMBER) {
-                    // Otp send to number successfully
-//                    Toast.makeText(requireContext(), "OTP send successfully", Toast.LENGTH_SHORT).show()
-//                    toastMessage.visibility = View.INVISIBLE
-
-                    enterOtpEditText.addTextChangedListener(object : TextWatcher {
+                    // Otp sent to number successfully
+                        enterOtpEditText.addTextChangedListener(object : TextWatcher {
                         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                             Log.d("VERIFY","CharSequence = $s Start = $start Before = $before Count = $count")
                             if (start == 5 && before == 0 && count == 1) {
-                                verifyAndProceedButton.background =
-                                    ContextCompat.getDrawable(requireContext(),R.drawable.button_shadow)
+                                verifyAndProceedButton.background = ContextCompat.getDrawable(requireContext(),R.drawable.button_shadow)
+                                verifyAndProceedButton.isClickable = true
+                            }else if (count == 6){
+                                verifyAndProceedButton.background = ContextCompat.getDrawable(requireContext(),R.drawable.button_shadow)
                                 verifyAndProceedButton.isClickable = true
                             }
                         }
@@ -223,7 +197,7 @@ class SignUp2Fragment : BaseFragment(), VerificationListener {
                     val c: Char = message.get(0)
                     if (c in '0'..'9'){
                         toastMessage.visibility = View.VISIBLE
-                        toastMessage.text = "OTP send successfully"
+                        toastMessage.text = "OTP sent successfully"
                         toastMessage.setBackgroundResource(R.color.transparent_blue)
                         enterOtpEditText.text?.clear()
                         verifyAndProceedButton.isClickable = false
@@ -244,7 +218,7 @@ class SignUp2Fragment : BaseFragment(), VerificationListener {
                         toastMessage.setBackgroundResource(R.color.transparent_red)
                     }else if (message == "no_request_found" || message == "Number is invalid type" || message == "Invalid_mobile"||message=="Please Enter valid mobile no"){
                         toastMessage.visibility = View.VISIBLE
-                        toastMessage.text = "Mobile no not found. Enter a valid no"
+                        toastMessage.text = "Mobile number not found. Enter a valid number"
                         toastMessage.setBackgroundResource(R.color.transparent_red)
                         timer.cancel()
                         timer.onFinish()
@@ -270,7 +244,6 @@ class SignUp2Fragment : BaseFragment(), VerificationListener {
                     }else {
                         Log.d("Ankan",message)
                     }
-
 //                exception found
 //                    Toast.makeText(requireContext(),"Error : " + responseCode.getCode(),Toast.LENGTH_SHORT).show()
                 }

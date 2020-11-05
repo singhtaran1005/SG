@@ -114,9 +114,10 @@
 
     <TextView
         android:id="@+id/toast_message_1st_signup_fragment"
-        android:layout_width="233dp"
-        android:layout_height="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
+        android:padding="5dp"
         android:background="@color/transparent_blue"
         android:fontFamily="@font/raleway"
         android:text="OTP resend to your mobile number"

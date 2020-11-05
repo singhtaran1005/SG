@@ -1,9 +1,9 @@
-package com.studgenie.app.ui.ApiService
+package com.studgenie.app.data.remote
 
 import com.studgenie.app.data.model.SendNumber
 import com.studgenie.app.data.model.SendUserDetails
-import com.studgenie.app.data.model.UserDetailsApiResponse
-import com.studgenie.app.data.model.SignUpApiResponse
+import com.studgenie.app.data.remote.UserDetailsApiResponse
+import com.studgenie.app.data.remote.SignUpApiResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -13,5 +13,5 @@ interface SignUpApi {
     fun userSignup( @Body number:SendNumber): Call<SignUpApiResponse>
 
     @POST("/students/createdetails")
-    fun userDetails( @Body details: SendUserDetails): Call<UserDetailsApiResponse>
+    fun userDetails( @Body details:SendUserDetails): Call<List<UserDetailsApiResponse>>
 }

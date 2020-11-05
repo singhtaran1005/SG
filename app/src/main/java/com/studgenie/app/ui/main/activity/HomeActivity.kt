@@ -1,13 +1,13 @@
-package com.studgenie.app.ui.onboarding.activity
+package com.studgenie.app.ui.main.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.studgenie.app.R
-import com.studgenie.app.ui.onboarding.fragment.CourseFragment
-import com.studgenie.app.ui.onboarding.fragment.HomeFragment
-import com.studgenie.app.ui.onboarding.fragment.ProfileFragmen
-import com.studgenie.app.ui.onboarding.fragment.VideoFragment
+import com.studgenie.app.ui.main.fragment.CourseFragment
+import com.studgenie.app.ui.main.fragment.HomeFragment
+import com.studgenie.app.ui.main.fragment.ProfileFragmen
+import com.studgenie.app.ui.main.fragment.VideoFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
@@ -30,9 +30,7 @@ class HomeActivity : AppCompatActivity() {
             }
             true
         }
-
     }
-
     private fun makeCurrentFragment(fragment: Fragment)=
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.home_fragment_container,fragment).commit()

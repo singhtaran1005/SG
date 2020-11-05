@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.onboarding.activity.HomeActivity"></activity>
+        <activity android:name=".ui.main.activity.HomeActivity"></activity>
         <activity
             android:name=".ui.onboarding.activity.SignUpActivity"
             android:screenOrientation="portrait"></activity>

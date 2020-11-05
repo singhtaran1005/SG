@@ -1,4 +1,4 @@
-package com.studgenie.app.ui.onboarding.fragment
+package com.studgenie.app.ui.main.fragment
 
 import android.net.Uri
 import android.os.Bundle

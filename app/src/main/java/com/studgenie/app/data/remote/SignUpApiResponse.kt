@@ -1,4 +1,4 @@
-package com.studgenie.app.data.model
+package com.studgenie.app.data.remote
 
 data class SignUpApiResponse(
     val auth_token:String,

@@ -6,7 +6,7 @@ import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.studgenie.app.R
-
+import com.studgenie.app.ui.main.activity.HomeActivity
 
 
 class SplashActivity : AppCompatActivity() {
@@ -16,7 +16,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
         Log.d("Splash","Inside Splash Activity")
         Handler().postDelayed(Runnable { /* Create an Intent that will start the Menu-Activity. */
-            val signupActivity = Intent(this, SignUpActivity::class.java)
+            val signupActivity = Intent(this, HomeActivity::class.java)
             this.startActivity(signupActivity)
             this.finish()
         }, SPLASH_DISPLAY_LENGTH.toLong())

@@ -1,4 +1,4 @@
-package com.studgenie.app.ui.Database
+package com.studgenie.app.data.local.tokenDatabase
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
