@@ -56,10 +56,10 @@ class SignUp3Fragment : Fragment() {
         val toastMessage = rootView.findViewById<TextView>(R.id.toast_message_3rd_signup_fragment)
         toastMessage.visibility = View.INVISIBLE
 
-        enterNameString = rootView.enter_name.text.toString().trim()
-        enterEmailString = rootView.enter_email.text.toString().trim()
-        enterPasswordString = rootView.enter_password.text.toString().trim()
-        enterConfirmPasswordString = rootView.confirm_password.text.toString().trim()
+        enterNameString = rootView.enter_name_editText.text.toString().trim()
+        enterEmailString = rootView.enter_email_editText.text.toString().trim()
+        enterPasswordString = rootView.enter_password_editText.text.toString().trim()
+        enterConfirmPasswordString = rootView.confirm_password_editText.text.toString().trim()
 
         skipButton.setOnClickListener {
             val i = Intent(activity, HomeActivity::class.java)
@@ -95,10 +95,10 @@ class SignUp3Fragment : Fragment() {
 
 
         submitButton.setOnClickListener {
-            enterNameString = rootView.enter_name.text.toString().trim()
-            enterEmailString = rootView.enter_email.text.toString().trim()
-            enterPasswordString = rootView.enter_password.text.toString().trim()
-            enterConfirmPasswordString = rootView.confirm_password.text.toString().trim()
+            enterNameString = rootView.enter_name_editText.text.toString().trim()
+            enterEmailString = rootView.enter_email_editText.text.toString().trim()
+            enterPasswordString = rootView.enter_password_editText.text.toString().trim()
+            enterConfirmPasswordString = rootView.confirm_password_editText.text.toString().trim()
 
             if (!enterNameString.isEmpty() && !enterEmailString.isEmpty() && !enterPasswordString.isEmpty()){
 
@@ -204,14 +204,7 @@ class SignUp3Fragment : Fragment() {
                     toastMessage.setBackgroundResource(R.color.transparent_red)
             }
         }
-//        mAuthViewModel.readAllData?.observe(viewLifecycleOwner, Observer{auth->
-//            Log.d("Coroutine",auth[0].id.toString()+auth[0].authToken)
-//        })
 
-//        mUserViewModel.readAllData?.observe(viewLifecycleOwner, Observer{user->
-//            Log.d("Coroutine1",user[0].id.toString()+user[0].number.toString()+user[0].firstName.toString()+user[0].lastName.toString()+user[0].dob.toString()+user[0].pictureUrl.toString()+user[0].accountStatus.toString()+user[0].maxDevices.toString()+user[0].userName.toString()+user[0].studentId.toString()+user[0].instituteId.toString()+user[0].email.toString())
-//
-//        })
         return rootView
     }
     fun CharSequence?.isValidEmail() = !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()

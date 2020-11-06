@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -64,12 +63,12 @@ class SignUp2Fragment : Fragment(), VerificationListener {
         val rootView = inflater.inflate(R.layout.fragment_sign_up_2, container, false)
         if (InternetConnectivity.isConnected(requireContext()) && InternetConnectivity.isConnectedFast(requireContext())){
 
-            verifyAndProceedButton = rootView.findViewById(R.id.verify_proceed) as Button
+            verifyAndProceedButton = rootView.findViewById(R.id.verify_proceed_button) as Button
             otpTimer = rootView.findViewById<View>(R.id.timer) as TextView
             reSendOtpButton = rootView.findViewById(R.id.resend_otp_button) as TextView
-            enterOtpEditText = rootView.findViewById(R.id.enter_otp) as OtpEditText
-            toastMessage = rootView.findViewById(R.id.toast_message_during_signup) as TextView
-            backArrow = rootView.findViewById(R.id.back_arrow) as Button
+            enterOtpEditText = rootView.findViewById(R.id.enter_otp_edittext) as OtpEditText
+            toastMessage = rootView.findViewById(R.id.toast_message_during_signup_textView) as TextView
+            backArrow = rootView.findViewById(R.id.back_arrow_button) as Button
 
             startTimer()
             reSendOtpButton.setOnClickListener { resendCode() }
@@ -179,31 +178,7 @@ class SignUp2Fragment : Fragment(), VerificationListener {
                                     fragmentManager!!.beginTransaction().replace(R.id.signup_fragment_container,signUp3Fragment).commit()
                                 }
                             }
-//                            if (response.body()?.auth_token.toString() != null) {
-//                                val mAuthToken = AuthToken(response.body()?.auth_token.toString())
-////                                val mAuthToken = AuthToken("bbbbbbbbbb")
-//                                if (isTokenEmpty == 1){
-//                                    authViewModel.addToken(mAuthToken)
 //
-//                                    Log.d("Coroutine", "Successfully added!")
-//                                    val signUp3Fragment = SignUp3Fragment()
-//                                    val args = Bundle()
-//                                    args.putString("phNo", phone)
-//                                    signUp3Fragment.arguments = args
-//                                    fragmentManager!!.beginTransaction().replace(R.id.signup_fragment_container,signUp3Fragment).commit()
-//                                }else{
-//                                    authViewModel.updateToken(mAuthToken)
-//                                    Log.d("Coroutine", "Successfully updated!")
-//
-//                                    val signUp3Fragment = SignUp3Fragment()
-//                                    val args = Bundle()
-//                                    args.putString("phNo", phone)
-//                                    signUp3Fragment.arguments = args
-//                                    fragmentManager!!.beginTransaction().replace(R.id.signup_fragment_container,signUp3Fragment).commit()
-//                                }
-//                            } else {
-//                                Toast.makeText(requireContext(), response.body()?.message.toString(), Toast.LENGTH_SHORT).show()
-//                            }
                         }
                         override fun onFailure(call: Call<SignUpApiResponse>, t: Throwable) {
                             Log.d("Retrofit2", "OnFailure")

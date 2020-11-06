@@ -21,7 +21,7 @@
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/sign_up_title"
+        android:id="@+id/sign_up_title_textView"
         android:layout_width="145dp"
         android:layout_height="51dp"
         android:layout_marginTop="40dp"
@@ -32,10 +32,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.191"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toast_message_during_signup" />
+        app:layout_constraintTop_toBottomOf="@+id/toast_message_during_signup_textView" />
 
     <com.studgenie.app.ui.common.OtpEditText
-        android:id="@+id/enter_otp"
+        android:id="@+id/enter_otp_edittext"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -51,11 +51,11 @@
         android:textIsSelectable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/sign_up_title"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_title" />
+        app:layout_constraintStart_toStartOf="@+id/sign_up_title_textView"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_title_textView" />
 
     <TextView
-        android:id="@+id/did_not_receive_otp"
+        android:id="@+id/did_not_receive_otp_textView"
         android:layout_width="130dp"
         android:layout_height="15dp"
         android:layout_marginStart="2dp"
@@ -64,12 +64,12 @@
         android:text="@string/receive_otp"
         android:textColor="@color/black"
         android:textSize="13dp"
-        app:layout_constraintStart_toStartOf="@+id/enter_otp"
-        app:layout_constraintTop_toBottomOf="@+id/enter_otp"
+        app:layout_constraintStart_toStartOf="@+id/enter_otp_edittext"
+        app:layout_constraintTop_toBottomOf="@+id/enter_otp_edittext"
         />
 
     <Button
-        android:id="@+id/verify_proceed"
+        android:id="@+id/verify_proceed_button"
         android:layout_width="141dp"
         android:layout_height="38dp"
         android:layout_marginEnd="4dp"
@@ -81,13 +81,13 @@
         android:textColor="@color/white"
         android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/enter_otp"
-        app:layout_constraintTop_toBottomOf="@+id/did_not_receive_otp"
+        app:layout_constraintEnd_toEndOf="@+id/enter_otp_edittext"
+        app:layout_constraintTop_toBottomOf="@+id/did_not_receive_otp_textView"
         app:layout_constraintVertical_bias="0.134" />
 
 
     <TextView
-        android:id="@+id/enter_otp_title"
+        android:id="@+id/enter_otp_title_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
@@ -96,8 +96,8 @@
         android:text="@string/enter_otp"
         android:textColor="@color/black"
         android:textSize="15dp"
-        app:layout_constraintStart_toStartOf="@+id/sign_up_title"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_title" />
+        app:layout_constraintStart_toStartOf="@+id/sign_up_title_textView"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_title_textView" />
 
     <TextView
         android:id="@+id/resend_otp_button"
@@ -108,9 +108,9 @@
         android:text="Resend OTP"
         android:textColor="@color/orangePrimary"
         android:textSize="13dp"
-        app:layout_constraintBottom_toBottomOf="@+id/did_not_receive_otp"
-        app:layout_constraintStart_toEndOf="@+id/did_not_receive_otp"
-        app:layout_constraintTop_toTopOf="@+id/did_not_receive_otp"
+        app:layout_constraintBottom_toBottomOf="@+id/did_not_receive_otp_textView"
+        app:layout_constraintStart_toEndOf="@+id/did_not_receive_otp_textView"
+        app:layout_constraintTop_toTopOf="@+id/did_not_receive_otp_textView"
         app:layout_constraintVertical_bias="1.0"
         android:layout_marginLeft="4dp"/>
 
@@ -123,13 +123,13 @@
         android:text="00:30"
         android:textColor="@color/black"
         android:textSize="13dp"
-        app:layout_constraintBottom_toTopOf="@+id/verify_proceed"
-        app:layout_constraintEnd_toEndOf="@+id/enter_otp"
+        app:layout_constraintBottom_toTopOf="@+id/verify_proceed_button"
+        app:layout_constraintEnd_toEndOf="@+id/enter_otp_edittext"
         app:layout_constraintTop_toTopOf="@+id/resend_otp_button"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/toast_message_during_signup"
+        android:id="@+id/toast_message_during_signup_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
@@ -148,12 +148,12 @@
         app:layout_constraintTop_toBottomOf="@+id/studgenie_imageView" />
 
     <Button
-        android:id="@+id/back_arrow"
+        android:id="@+id/back_arrow_button"
         android:layout_width="31dp"
         android:layout_height="31dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/arrow_back"
-        app:layout_constraintEnd_toStartOf="@+id/sign_up_title"
+        app:layout_constraintEnd_toStartOf="@+id/sign_up_title_textView"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
