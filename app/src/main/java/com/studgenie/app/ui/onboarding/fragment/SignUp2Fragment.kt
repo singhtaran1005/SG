@@ -139,7 +139,24 @@ class SignUp2Fragment : Fragment(), VerificationListener {
                                         + "Auth Token: ${response.body()?.auth_token.toString()} \n"
                                         + "Response Code: ${response.code()}\n"
                             )
-                            if (response.body()?.auth_token.toString() != null) {
+                            if (response.body()?.message.toString() == "User already exists"){
+                                toastMessage.visibility = View.VISIBLE
+                                toastMessage.text = "User already exists"
+                                toastMessage.setBackgroundResource(R.color.transparent_red)
+
+                                if (isTokenEmpty != 1){
+                                    toastMessage.visibility = View.VISIBLE
+                                    toastMessage.text = "You can update your details only"
+                                    toastMessage.setBackgroundResource(R.color.transparent_blue)
+
+                                    val signUp3Fragment = SignUp3Fragment()
+                                    val args = Bundle()
+                                    args.putString("phNo", phone)
+                                    signUp3Fragment.arguments = args
+                                    fragmentManager!!.beginTransaction().replace(R.id.signup_fragment_container,signUp3Fragment).commit()
+                                }
+
+                            }else{
                                 val mAuthToken = AuthToken(response.body()?.auth_token.toString())
 //                                val mAuthToken = AuthToken("bbbbbbbbbb")
                                 if (isTokenEmpty == 1){
@@ -152,7 +169,7 @@ class SignUp2Fragment : Fragment(), VerificationListener {
                                     signUp3Fragment.arguments = args
                                     fragmentManager!!.beginTransaction().replace(R.id.signup_fragment_container,signUp3Fragment).commit()
                                 }else{
-                                    authViewModel.updateToken(mAuthToken)
+                                    authViewModel.update(response.body()?.auth_token.toString(),1)
                                     Log.d("Coroutine", "Successfully updated!")
 
                                     val signUp3Fragment = SignUp3Fragment()
@@ -161,9 +178,32 @@ class SignUp2Fragment : Fragment(), VerificationListener {
                                     signUp3Fragment.arguments = args
                                     fragmentManager!!.beginTransaction().replace(R.id.signup_fragment_container,signUp3Fragment).commit()
                                 }
-                            } else {
-                                Toast.makeText(requireContext(), response.body()?.message.toString(), Toast.LENGTH_SHORT).show()
                             }
+//                            if (response.body()?.auth_token.toString() != null) {
+//                                val mAuthToken = AuthToken(response.body()?.auth_token.toString())
+////                                val mAuthToken = AuthToken("bbbbbbbbbb")
+//                                if (isTokenEmpty == 1){
+//                                    authViewModel.addToken(mAuthToken)
+//
+//                                    Log.d("Coroutine", "Successfully added!")
+//                                    val signUp3Fragment = SignUp3Fragment()
+//                                    val args = Bundle()
+//                                    args.putString("phNo", phone)
+//                                    signUp3Fragment.arguments = args
+//                                    fragmentManager!!.beginTransaction().replace(R.id.signup_fragment_container,signUp3Fragment).commit()
+//                                }else{
+//                                    authViewModel.updateToken(mAuthToken)
+//                                    Log.d("Coroutine", "Successfully updated!")
+//
+//                                    val signUp3Fragment = SignUp3Fragment()
+//                                    val args = Bundle()
+//                                    args.putString("phNo", phone)
+//                                    signUp3Fragment.arguments = args
+//                                    fragmentManager!!.beginTransaction().replace(R.id.signup_fragment_container,signUp3Fragment).commit()
+//                                }
+//                            } else {
+//                                Toast.makeText(requireContext(), response.body()?.message.toString(), Toast.LENGTH_SHORT).show()
+//                            }
                         }
                         override fun onFailure(call: Call<SignUpApiResponse>, t: Throwable) {
                             Log.d("Retrofit2", "OnFailure")
@@ -206,7 +246,7 @@ class SignUp2Fragment : Fragment(), VerificationListener {
                     if (message == "otp_sent_successfully"){
                         toastMessage.visibility = View.VISIBLE
                         enterOtpEditText.text?.clear();
-                        toastMessage.text = "OTP resend to your mobile number"
+                        toastMessage.text = "OTP resent to your mobile number"
                         toastMessage.setBackgroundResource(R.color.transparent_blue)
                         verifyAndProceedButton.isClickable = false
                         verifyAndProceedButton.setBackgroundResource(R.color.transparent_red)
@@ -224,7 +264,7 @@ class SignUp2Fragment : Fragment(), VerificationListener {
                         timer.onFinish()
                     }else if (message == "max_limit_reached_for_this_otp_verification"){
                         toastMessage.visibility = View.VISIBLE
-                        toastMessage.text = "Max limit reached for this otp verification"
+                        toastMessage.text = "Maximum limit reached for this OTP verification"
                         toastMessage.setBackgroundResource(R.color.transparent_red)
                         timer.cancel()
                         timer.onFinish()

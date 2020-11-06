@@ -12,4 +12,8 @@ class AuthRepository(private val authDao: AuthDao) {
     suspend fun updateToken(authToken: AuthToken){
         authDao.updateToken(authToken)
     }
+
+    suspend fun update(token:String,pid:Int){
+        authDao.update(token, pid)
+    }
 }

@@ -14,6 +14,9 @@ interface AuthDao{
     @Update
     suspend fun updateToken(authToken: AuthToken)
 
+    @Query("UPDATE AuthToken SET authToken=:token WHERE id=:pid")
+    suspend fun update(token:String,pid:Int)
+
     @Query("SELECT * FROM AuthToken ORDER BY id DESC")
     fun getAuthToken(): LiveData<List<AuthToken>>
 }

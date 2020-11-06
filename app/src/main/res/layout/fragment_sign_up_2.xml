@@ -47,7 +47,7 @@
         android:inputType="phone"
         android:textColor="@color/black"
         android:textSize="26dp"
-        android:cursorVisible="false"
+        android:cursorVisible="true"
         android:textIsSelectable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

@@ -14,6 +14,9 @@ interface UserDao {
     @Update
     suspend fun updateUserdata(userData: UserData)
 
+    @Query("UPDATE UserData SET userName = :username,email = :email WHERE id=:pid")
+    suspend fun update(username:String,email:String,pid:Int)
+
     @Query("SELECT * FROM UserData ORDER BY id DESC")
     fun getUserData(): LiveData<List<UserData>>
 }

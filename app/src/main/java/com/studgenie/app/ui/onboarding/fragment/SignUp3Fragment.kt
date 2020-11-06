@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -100,92 +101,101 @@ class SignUp3Fragment : Fragment() {
             enterConfirmPasswordString = rootView.confirm_password.text.toString().trim()
 
             if (!enterNameString.isEmpty() && !enterEmailString.isEmpty() && !enterPasswordString.isEmpty()){
-                if (enterPasswordString.equals(enterConfirmPasswordString)){
-                    toastMessage.visibility = View.INVISIBLE
+
+                if (enterEmailString.isValidEmail()){
+                    if (enterPasswordString.length in 6..10){
+                        if (enterPasswordString.equals(enterConfirmPasswordString)){
+                            toastMessage.visibility = View.INVISIBLE
 
 
-                    val retrofit = Retrofit.Builder()
+                            val retrofit = Retrofit.Builder()
 //                .baseUrl("http://192.168.43.217:3000")
 //                .baseUrl("http://sg-backend-dev.ap-south-1.elasticbeanstalk.com")
-                        .baseUrl(Config.baseUrl)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build()
+                                .baseUrl(Config.baseUrl)
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build()
 
-                    val createDetailsApi = retrofit.create(SignUpApi::class.java)
-                    if (authToken != null){
-                val sendDetails = SendUserDetails(enterNameString,enterEmailString,enterPasswordString,authToken)
+                            val createDetailsApi = retrofit.create(SignUpApi::class.java)
+                            if (authToken != null){
+                                val sendDetails = SendUserDetails(enterNameString,enterEmailString,enterPasswordString,authToken)
 //                        val sendDetails = SendUserDetails("aaaaaa","aa@bb","12345","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJudW1iZXIiOiI3OTkyOTgyMDM4IiwiaWF0IjoxNjAzODA5MTI2fQ.XyVd0uiTLCDFRHu3dwu4SsyUEes35Vzxb-QjMiROYV0")
-                        createDetailsApi.userDetails(sendDetails).enqueue(object :
-                            Callback<List<UserDetailsApiResponse>> {
-                            override fun onResponse(
-                                call: Call<List<UserDetailsApiResponse>>,
-                                response: Response<List<UserDetailsApiResponse>>
-                            ) {
-                                Log.d(
-                                    "Retrofit3", "OnResponse: ${response.body()?.get(0)?.number} \n"
-                                            + "Response Code: ${response.code()}\n"
-                                )
-                                val mUserData = UserData(
-                                    response.body()?.get(0)?.number.toString(),
-                                    response.body()?.get(0)?.first_name.toString(),
-                                    response.body()?.get(0)?.last_name.toString(),
-                                    response.body()?.get(0)?.dob.toString(),
-                                    response.body()?.get(0)?.picture_url.toString(),
-                                    response.body()?.get(0)?.account_status.toString(),
-                                    response.body()?.get(0)?.max_devices!!.toInt(),
-                                    response.body()?.get(0)?.user_name.toString(),
-                                    response.body()?.get(0)?.student_id!!.toInt(),
-                                    response.body()?.get(0)?.institute_id.toString(),
-                                    response.body()?.get(0)?.email.toString()
-                                )
+                                createDetailsApi.userDetails(sendDetails).enqueue(object :
+                                    Callback<List<UserDetailsApiResponse>> {
+                                    override fun onResponse(
+                                        call: Call<List<UserDetailsApiResponse>>,
+                                        response: Response<List<UserDetailsApiResponse>>
+                                    ) {
+                                        Log.d(
+                                            "Retrofit3", "OnResponse: ${response.body()?.get(0)?.number} \n"
+                                                    + "Response Code: ${response.code()}\n"
+                                        )
+                                        val mUserData = UserData(
+                                            response.body()?.get(0)?.number.toString(),
+                                            response.body()?.get(0)?.first_name.toString(),
+                                            response.body()?.get(0)?.last_name.toString(),
+                                            response.body()?.get(0)?.dob.toString(),
+                                            response.body()?.get(0)?.picture_url.toString(),
+                                            response.body()?.get(0)?.account_status.toString(),
+                                            response.body()?.get(0)?.max_devices!!.toInt(),
+                                            response.body()?.get(0)?.user_name.toString(),
+                                            response.body()?.get(0)?.student_id!!.toInt(),
+                                            response.body()?.get(0)?.institute_id.toString(),
+                                            response.body()?.get(0)?.email.toString()
+                                        )
 
-                                if (isUserEmpty == 1) {
-                                    userViewModel.addUserData(mUserData)
-                                    Log.d("Coroutine1", "Successfully added!")
+                                        if (isUserEmpty == 1) {
+                                            userViewModel.addUserData(mUserData)
+                                            Log.d("Coroutine1", "Successfully added!")
 
-                                    val i = Intent(activity, HomeActivity::class.java)
-                                    startActivity(i)
-                                    (activity as Activity?)!!.overridePendingTransition(0, 0)
+                                            val i = Intent(activity, HomeActivity::class.java)
+                                            startActivity(i)
+                                            (activity as Activity?)!!.overridePendingTransition(0, 0)
 
-                                    userViewModel.readAllData?.observe(viewLifecycleOwner, Observer { user ->
-                                            Log.d("Coroutine1", user[0].id.toString() + user[0].number.toString() + user[0].firstName.toString() + user[0].lastName.toString() + user[0].dob.toString() + user[0].pictureUrl.toString() + user[0].accountStatus.toString() + user[0].maxDevices.toString() + user[0].userName.toString() + user[0].studentId.toString() + user[0].instituteId.toString() + user[0].email.toString())
-                                            Toast.makeText(requireContext(),user[0].id.toString() + user[0].number.toString() + user[0].firstName.toString() + user[0].lastName.toString() + user[0].dob.toString() + user[0].pictureUrl.toString() + user[0].accountStatus.toString() + user[0].maxDevices.toString() + user[0].userName.toString() + user[0].studentId.toString() + user[0].instituteId.toString() + user[0].email.toString() , Toast.LENGTH_SHORT).show()
-                                        })
-                                    activity?.finish()
-                                } else {
-                                    userViewModel.updateUserdata(mUserData)
-                                    Log.d("Coroutine1", "Successfully updated!")
 
-                                    val i = Intent(activity, HomeActivity::class.java)
-                                    startActivity(i)
-                                    (activity as Activity?)!!.overridePendingTransition(0, 0)
-                                    userViewModel.readAllData?.observe(viewLifecycleOwner, Observer { user ->
-                                        Log.d("Coroutine1", user[0].id.toString() + user[0].number.toString() + user[0].firstName.toString() + user[0].lastName.toString() + user[0].dob.toString() + user[0].pictureUrl.toString() + user[0].accountStatus.toString() + user[0].maxDevices.toString() + user[0].userName.toString() + user[0].studentId.toString() + user[0].instituteId.toString() + user[0].email.toString())
-                                        Toast.makeText(requireContext(),user[0].id.toString() + user[0].number.toString() + user[0].firstName.toString() + user[0].lastName.toString() + user[0].dob.toString() + user[0].pictureUrl.toString() + user[0].accountStatus.toString() + user[0].maxDevices.toString() + user[0].userName.toString() + user[0].studentId.toString() + user[0].instituteId.toString() + user[0].email.toString() , Toast.LENGTH_SHORT).show()
-                                    })
+                                            userViewModel.readAllData?.observe(viewLifecycleOwner, Observer { user ->
+                                                if(!user.isEmpty()){
+                                                    Log.d("Coroutine1", user[0].id.toString() + user[0].number.toString() + user[0].firstName.toString() + user[0].lastName.toString() + user[0].dob.toString() + user[0].pictureUrl.toString() + user[0].accountStatus.toString() + user[0].maxDevices.toString() + user[0].userName.toString() + user[0].studentId.toString() + user[0].instituteId.toString() + user[0].email.toString())
+                                                    Toast.makeText(requireContext(),user[0].id.toString() + user[0].number.toString() + user[0].firstName.toString() + user[0].lastName.toString() + user[0].dob.toString() + user[0].pictureUrl.toString() + user[0].accountStatus.toString() + user[0].maxDevices.toString() + user[0].userName.toString() + user[0].studentId.toString() + user[0].instituteId.toString() + user[0].email.toString() , Toast.LENGTH_SHORT).show()
+                                                }else{
+                                                    Log.d("Coroutine1","User Data Not added")
+                                                }
+                                            })
+                                            activity?.finish()
+                                        } else {
+                                            userViewModel.update(response.body()?.get(0)?.user_name.toString(),response.body()?.get(0)?.email.toString(),1)
+                                            Log.d("Coroutine1", "Successfully updated!")
 
-                                    activity?.finish()
-                                }
+                                            val i = Intent(activity, HomeActivity::class.java)
+                                            startActivity(i)
+                                            (activity as Activity?)!!.overridePendingTransition(0, 0)
+                                            userViewModel.readAllData?.observe(viewLifecycleOwner, Observer { user ->
+                                                Log.d("Coroutine1", user[0].id.toString() + user[0].number.toString() + user[0].firstName.toString() + user[0].lastName.toString() + user[0].dob.toString() + user[0].pictureUrl.toString() + user[0].accountStatus.toString() + user[0].maxDevices.toString() + user[0].userName.toString() + user[0].studentId.toString() + user[0].instituteId.toString() + user[0].email.toString())
+                                                Toast.makeText(requireContext(),user[0].id.toString() + user[0].number.toString() + user[0].firstName.toString() + user[0].lastName.toString() + user[0].dob.toString() + user[0].pictureUrl.toString() + user[0].accountStatus.toString() + user[0].maxDevices.toString() + user[0].userName.toString() + user[0].studentId.toString() + user[0].instituteId.toString() + user[0].email.toString() , Toast.LENGTH_SHORT).show()
+                                            })
+
+                                            activity?.finish()
+                                        }
+                                    }
+                                    override fun onFailure(call: Call<List<UserDetailsApiResponse>>, t: Throwable) {
+                                        Log.d("Retrofit3", "OnFailure \n"+ "Response Code:" + t.message + "\n" + t.cause + "\n" + t.printStackTrace().toString())
+                                    }
+                                })
+                            }else{
+                                Log.d("Coroutine","Auth token is empty")
                             }
-
-                            override fun onFailure(
-                                call: Call<List<UserDetailsApiResponse>>,
-                                t: Throwable
-                            ) {
-                                Log.d(
-                                    "Retrofit3", "OnFailure \n"
-                                            + "Response Code:" + t.message
-                                            + "\n" + t.cause
-                                            + "\n" + t.printStackTrace().toString()
-                                )
-                            }
-                        })
+                        }else{
+                            toastMessage.visibility = View.VISIBLE
+                            toastMessage.text = "Password not matched"
+                            toastMessage.setBackgroundResource(R.color.transparent_red)
+                        }
                     }else{
-                        Log.d("Coroutine","Auth token is empty")
+                        toastMessage.visibility = View.VISIBLE
+                        toastMessage.text = "Password length should be between 6-10"
+                        toastMessage.setBackgroundResource(R.color.transparent_red)
                     }
                 }else{
                     toastMessage.visibility = View.VISIBLE
-                    toastMessage.text = "Password Not Matched"
+                    toastMessage.text = "Enter a valid Email"
                     toastMessage.setBackgroundResource(R.color.transparent_red)
                 }
             }else{
@@ -204,4 +214,5 @@ class SignUp3Fragment : Fragment() {
 //        })
         return rootView
     }
+    fun CharSequence?.isValidEmail() = !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 }

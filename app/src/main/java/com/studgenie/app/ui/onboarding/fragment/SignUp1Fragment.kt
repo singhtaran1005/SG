@@ -78,23 +78,18 @@ class SignUp1Fragment : Fragment(){
                         signUp2Fragment.arguments = args
                         fragmentManager!!.beginTransaction().replace(R.id.signup_fragment_container,signUp2Fragment).commit()
                     }
-
                 } else {
                     toastMessage.visibility = View.VISIBLE
                     toastMessage.text = "Check Your Internet Connection"
                     toastMessage.setBackgroundResource(R.color.transparent_red)
                 }
             })
-
-
         exploreTextView.setOnClickListener {
             val i = Intent(activity, HomeActivity::class.java)
             startActivity(i)
             (activity as Activity?)!!.overridePendingTransition(0, 0)
-
             activity?.finish()
         }
-
         return rootView
     }
 

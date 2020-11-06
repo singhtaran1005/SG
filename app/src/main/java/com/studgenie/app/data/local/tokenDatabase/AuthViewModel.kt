@@ -30,4 +30,10 @@ class AuthViewModel(application: Application):AndroidViewModel(application) {
             repository?.updateToken(authToken)
         }
     }
+
+    fun update(token:String,pid:Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository?.update(token, pid)
+        }
+    }
 }
